@@ -474,24 +474,24 @@ type
 #                const EVP_MD *md, int en_de);
 # Add some extra combinations 
 
-template EVP_get_digestbynid*(a: expr): expr = 
+template EVP_get_digestbynid*(a: untyped): untyped = 
   EVP_get_digestbyname(OBJ_nid2sn(a))
 
-template EVP_get_digestbyobj*(a: expr): expr = 
+template EVP_get_digestbyobj*(a: untyped): untyped = 
   EVP_get_digestbynid(OBJ_obj2nid(a))
 
-template EVP_get_cipherbynid*(a: expr): expr = 
+template EVP_get_cipherbynid*(a: untyped): untyped = 
   EVP_get_cipherbyname(OBJ_nid2sn(a))
 
-template EVP_get_cipherbyobj*(a: expr): expr = 
+template EVP_get_cipherbyobj*(a: untyped): untyped = 
   EVP_get_cipherbynid(OBJ_obj2nid(a))
 
 proc EVP_MD_type*(md: ptr EVP_MD): cint {.cdecl, importc: "EVP_MD_type", 
     dynlib: cryptodll.}
-template EVP_MD_nid*(e: expr): expr = 
+template EVP_MD_nid*(e: untyped): untyped = 
   EVP_MD_type(e)
 
-template EVP_MD_name*(e: expr): expr = 
+template EVP_MD_name*(e: untyped): untyped = 
   OBJ_nid2sn(EVP_MD_nid(e))
 
 proc EVP_MD_pkey_type*(md: ptr EVP_MD): cint {.cdecl, 
@@ -504,18 +504,18 @@ proc EVP_MD_flags*(md: ptr EVP_MD): culong {.cdecl, importc: "EVP_MD_flags",
     dynlib: cryptodll.}
 proc EVP_MD_CTX_md*(ctx: ptr EVP_MD_CTX): ptr EVP_MD {.cdecl, 
     importc: "EVP_MD_CTX_md", dynlib: cryptodll.}
-template EVP_MD_CTX_size*(e: expr): expr = 
+template EVP_MD_CTX_size*(e: untyped): untyped = 
   EVP_MD_size(EVP_MD_CTX_md(e))
 
-template EVP_MD_CTX_block_size*(e: expr): expr = 
+template EVP_MD_CTX_block_size*(e: untyped): untyped = 
   EVP_MD_block_size(EVP_MD_CTX_md(e))
 
-template EVP_MD_CTX_type*(e: expr): expr = 
+template EVP_MD_CTX_type*(e: untyped): untyped = 
   EVP_MD_type(EVP_MD_CTX_md(e))
 
 proc EVP_CIPHER_nid*(cipher: ptr T_EVP_CIPHER): cint {.cdecl, 
     importc: "EVP_CIPHER_nid", dynlib: cryptodll.}
-template EVP_CIPHER_name*(e: expr): expr = 
+template EVP_CIPHER_name*(e: untyped): untyped = 
   OBJ_nid2sn(EVP_CIPHER_nid(e))
 
 proc EVP_CIPHER_block_size*(cipher: ptr T_EVP_CIPHER): cint {.cdecl, 
@@ -526,7 +526,7 @@ proc EVP_CIPHER_iv_length*(cipher: ptr T_EVP_CIPHER): cint {.cdecl,
     importc: "EVP_CIPHER_iv_length", dynlib: cryptodll.}
 proc EVP_CIPHER_flags*(cipher: ptr T_EVP_CIPHER): culong {.cdecl, 
     importc: "EVP_CIPHER_flags", dynlib: cryptodll.}
-template EVP_CIPHER_mode*(e: expr): expr = 
+template EVP_CIPHER_mode*(e: untyped): untyped = 
   (EVP_CIPHER_flags(e) and EVP_CIPH_MODE)
 
 proc EVP_CIPHER_CTX_cipher*(ctx: ptr EVP_CIPHER_CTX): ptr T_EVP_CIPHER {.cdecl, 
@@ -547,68 +547,68 @@ proc EVP_CIPHER_CTX_set_app_data*(ctx: ptr EVP_CIPHER_CTX; data: pointer) {.
     cdecl, importc: "EVP_CIPHER_CTX_set_app_data", dynlib: cryptodll.}
 proc EVP_CIPHER_CTX_flags*(ctx: ptr EVP_CIPHER_CTX): culong {.cdecl, 
     importc: "EVP_CIPHER_CTX_flags", dynlib: cryptodll.}
-template EVP_CIPHER_CTX_type*(c: expr): expr = 
+template EVP_CIPHER_CTX_type*(c: untyped): untyped = 
   EVP_CIPHER_type(EVP_CIPHER_CTX_cipher(c))
 
-template EVP_CIPHER_CTX_mode*(e: expr): expr = 
+template EVP_CIPHER_CTX_mode*(e: untyped): untyped = 
   (EVP_CIPHER_CTX_flags(e) and EVP_CIPH_MODE)
 
-template EVP_ENCODE_LENGTH*(l: expr): expr = 
+template EVP_ENCODE_LENGTH*(l: untyped): untyped = 
   (((l + 2) div 3 * 4) + (l div 48 + 1) * 2 + 80)
 
-template EVP_DECODE_LENGTH*(l: expr): expr = 
+template EVP_DECODE_LENGTH*(l: untyped): untyped = 
   ((l + 3) div 4 * 3 + 80)
 
-template EVP_SignInit_ex*(a, b, c: expr): expr = 
+template EVP_SignInit_ex*(a, b, c: untyped): untyped = 
   EVP_DigestInit_ex(a, b, c)
 
-template EVP_SignInit*(a, b: expr): expr = 
+template EVP_SignInit*(a, b: untyped): untyped = 
   EVP_DigestInit(a, b)
 
-template EVP_SignUpdate*(a, b, c: expr): expr = 
+template EVP_SignUpdate*(a, b, c: untyped): untyped = 
   EVP_DigestUpdate(a, b, c)
 
-template EVP_VerifyInit_ex*(a, b, c: expr): expr = 
+template EVP_VerifyInit_ex*(a, b, c: untyped): untyped = 
   EVP_DigestInit_ex(a, b, c)
 
-template EVP_VerifyInit*(a, b: expr): expr = 
+template EVP_VerifyInit*(a, b: untyped): untyped = 
   EVP_DigestInit(a, b)
 
-template EVP_VerifyUpdate*(a, b, c: expr): expr = 
+template EVP_VerifyUpdate*(a, b, c: untyped): untyped = 
   EVP_DigestUpdate(a, b, c)
 
-template EVP_OpenUpdate*(a, b, c, d, e: expr): expr = 
+template EVP_OpenUpdate*(a, b, c, d, e: untyped): untyped = 
   EVP_DecryptUpdate(a, b, c, d, e)
 
-template EVP_SealUpdate*(a, b, c, d, e: expr): expr = 
+template EVP_SealUpdate*(a, b, c, d, e: untyped): untyped = 
   EVP_EncryptUpdate(a, b, c, d, e)
 
-template EVP_DigestSignUpdate*(a, b, c: expr): expr = 
+template EVP_DigestSignUpdate*(a, b, c: untyped): untyped = 
   EVP_DigestUpdate(a, b, c)
 
-template EVP_DigestVerifyUpdate*(a, b, c: expr): expr = 
+template EVP_DigestVerifyUpdate*(a, b, c: untyped): untyped = 
   EVP_DigestUpdate(a, b, c)
 
 when defined(CONST_STRICT): 
   proc BIO_set_md*(a2: ptr BIO; md: ptr EVP_MD) {.cdecl, importc: "BIO_set_md", 
       dynlib: cryptodll.}
 else: 
-  template BIO_set_md*(b, md: expr): expr = 
+  template BIO_set_md*(b, md: untyped): untyped = 
     BIO_ctrl(b, BIO_C_SET_MD, 0, cast[cstring](md))
 
-template BIO_get_md*(b, mdp: expr): expr = 
+template BIO_get_md*(b, mdp: untyped): untyped = 
   BIO_ctrl(b, BIO_C_GET_MD, 0, cast[cstring](mdp))
 
-template BIO_get_md_ctx*(b, mdcp: expr): expr = 
+template BIO_get_md_ctx*(b, mdcp: untyped): untyped = 
   BIO_ctrl(b, BIO_C_GET_MD_CTX, 0, cast[cstring](mdcp))
 
-template BIO_set_md_ctx*(b, mdcp: expr): expr = 
+template BIO_set_md_ctx*(b, mdcp: untyped): untyped = 
   BIO_ctrl(b, BIO_C_SET_MD_CTX, 0, cast[cstring](mdcp))
 
-template BIO_get_cipher_status*(b: expr): expr = 
+template BIO_get_cipher_status*(b: untyped): untyped = 
   BIO_ctrl(b, BIO_C_GET_CIPHER_STATUS, 0, nil)
 
-template BIO_get_cipher_ctx*(b, c_pp: expr): expr = 
+template BIO_get_cipher_ctx*(b, c_pp: untyped): untyped = 
   BIO_ctrl(b, BIO_C_GET_CIPHER_CTX, 0, cast[cstring](c_pp))
 
 proc EVP_Cipher*(c: ptr EVP_CIPHER_CTX; output: ptr cuchar; input: ptr cuchar; 
@@ -1265,7 +1265,7 @@ let
   #  EVP_PKEY_OP_SIG or EVP_PKEY_OP_CRYPT or EVP_PKEY_OP_DERIVE)
   EVP_PKEY_OP_TYPE_GEN* = (EVP_PKEY_OP_PARAMGEN or EVP_PKEY_OP_KEYGEN)
 
-template EVP_PKEY_CTX_set_signature_md*(ctx, md: expr): expr = 
+template EVP_PKEY_CTX_set_signature_md*(ctx, md: untyped): untyped = 
   EVP_PKEY_CTX_ctrl(ctx, - 1, EVP_PKEY_OP_TYPE_SIG, EVP_PKEY_CTRL_MD, 0, 
                     cast[pointer](md))
 
