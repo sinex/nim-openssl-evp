@@ -55,7 +55,7 @@
 #  [including the GNU Public Licence.]
 # 
 
-import openssl_crypto
+import openssl_evp/openssl_crypto
 
 {.deadCodeElim: on.}
 when defined(windows): 
