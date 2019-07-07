@@ -877,7 +877,7 @@ type
     shift*: cint
     flags*: cint
 
-  INNER_C_UNION_1020486196504891075* = object  {.union.}
+  INNER_C_UNION_1020486196504891075* {.union.} = object
     cb_1*: proc (a2: cint; a3: cint; a4: pointer) {.cdecl.}
     cb_2*: proc (a2: cint; a3: cint; a4: ptr BN_GENCB): cint {.cdecl.}
 
@@ -959,7 +959,7 @@ type
   stack_st_ASN1_GENERALSTRING* = object 
     stack*: mStack
 
-  INNER_C_UNION_15884546358380581324* = object  {.union.}
+  INNER_C_UNION_15884546358380581324* {.union.} = object
     pntr*: cstring
     boolean*: ASN1_BOOLEAN
     asn1_string*: ptr ASN1_STRING

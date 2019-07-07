@@ -146,7 +146,7 @@ type
     T_EVP_CIPHER* = openssl_crypto.EVP_CIPHER
 
 type  
-  evp_pkey* = object  {.union.}
+  evp_pkey* {.union.} = object
     pntr*: cstring
     rsa*: ptr rsa_st
     dsa*: ptr dsa_st
